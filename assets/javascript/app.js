@@ -3,7 +3,10 @@ var screen = $("#question-area");
 var radioButton = $(".radio");
 var correctAnswers = 0;
 var wrongAnswers = 0;
+var notAnswered = 0;
 var currentQuestion = 0;
+var countStartNumber = 10;
+var intervalID;
 
 //object that holds the questions and answers
 var questions = [{
@@ -45,6 +48,7 @@ $("#start").on("click", function() {
     loadQuestion(currentQuestion);
     //hide start button
     $("#start").hide();
+    $('#timer').prepend('<h2>Time Remaining: <span id="counter-number">10</span> Seconds</h2>');
 });
 
 //selected an answer
@@ -55,21 +59,40 @@ $(document).on('click', 'input[type="radio"]', function() {
     pickAnswer(currentQuestion, selectedAnswer);
 })
 
+//restart game
+$(document).on("click", "#restart", function() {
+    currentQuestion = 0;
+    correctAnswers = 0;
+    wrongAnswers = 0;
+    notAnswered = 0;
+    countStartNumber = 10;
+    $("#score").hide();
+    $("#timer").show();
+    $("#question").show();
+    $("#answers").show();
+    loadQuestion(currentQuestion);
+});
+
 //loads next question
 function nextQuestion() {
+    countStartNumber = 10;
     currentQuestion++;
+    $("#timer").show();
     $("#question").show();
     $("#answers").show();
     $("#results").hide();
-    console.log(currentQuestion + " nextQuestion function is running")
     loadQuestion(currentQuestion);
 }
 
 //loads results when game is over
 function results() {
-    screen.html("<h2>Game Over!</h2>")
-    screen.append("<h3>Correct Answers: " + correctAnswers)
-    screen.append("<h3>Incorrect Answers: " + wrongAnswers)
+    $("#results").hide();
+    $("#timer").hide();
+    $("#score").html("<h2>Game Over!</h2>")
+    $("#score").append("<h3>Correct Answers: " + correctAnswers)
+    $("#score").append("<h3>Incorrect Answers: " + wrongAnswers)
+    $("#score").append("<h3>Unanswered: " + notAnswered)
+    $("#score").append("<button id='restart'>Restart</button>")
 }
 
 //hides question and answers divs, shows the results div, handles the logic to either show the next question or the results
@@ -77,17 +100,48 @@ function displayAnswer() {
     $("#results").show();
     $("#question").hide();
     $("#answers").hide();
+    $("#timer").hide();
     $("#results").append("<img src='" + questions[currentQuestion].image + "'/>")
         if (currentQuestion === questions.length - 1){
-            setTimeout(results, 3 * 1000);
+            setTimeout(results, 2 * 1000);
           } else {
-            setTimeout(nextQuestion, 3 * 1000);
+            setTimeout(nextQuestion, 2 * 1000);
           }
 }
 
+//start timer function
+function startTimer() {
+    clearInterval(intervalID);
+    intervalID = setInterval(countdown, 1000);
+}
+
+//timer function
+function countdown() {
+    countStartNumber--;
+    $("#counter-number").html(countStartNumber);
+    if (countStartNumber === 0) {
+        console.log("TIME UP")
+        timeUp();
+    }
+}
+
+//displays time up message and correct answer if time runs out
+function timeUp() {
+    clearInterval(intervalID);
+    countStartNumber = 10;
+    notAnswered++;
+    $("#results").html("<h2>Times Up!</h2>")
+    $("#results").append("<p>The correct answer was <strong>" + questions[currentQuestion].correctAnswer + "</strong>.")
+    displayAnswer();
+}
 
 //function to load first question
 function loadQuestion(currentQuestion) {
+
+    //starts timer
+    startTimer();
+
+    // timer = setInterval(countdownTimer, 1000);
     
     //add question to screen
     $("#question").html(questions[currentQuestion].question);
@@ -126,3 +180,4 @@ function pickAnswer(currentQuestion, selectedAnswer) {
 }
 
 
+//FIX TIMER SO IT ACTUALLY RESETS TO 10

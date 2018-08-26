@@ -1,3 +1,41 @@
-/* .radio {
-    display: none;
-} */
+@import url('https://fonts.googleapis.com/css?family=Cormorant+Upright|Josefin+Slab|Miss+Fajardose|Monsieur+La+Doulaise|Mr+Dafoe');
+
+.headline-h2 {
+    text-align: center;
+    color: bisque;
+    font-family: 'Josefin Slab', serif;
+    /* font-family: 'Cormorant Upright', serif; */
+}
+
+.headline-h1 {
+    text-align: center;
+    color: bisque;
+    font-family: 'Monsieur La Doulaise', cursive;
+    font-size: 100px;
+    padding-top: 30px;
+}
+
+.btn {
+    font-family: 'Josefin Slab', serif;
+}
+
+.jumbotron {
+    background-color: #171e4b;
+    /* background-image: url("https://images.freecreatives.com/wp-content/uploads/2016/02/Navy-Blue-Star-Background-Vector-For-Free.jpg");
+    background-repeat: no-repeat; 
+    background-size:contain;
+    background-position:center; */
+}
+
+#question-area {
+    /* background-color: blanchedalmond; */
+    width: 500px;
+    margin: 100px;
+    height: 100px;
+}
+
+#start {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+}
