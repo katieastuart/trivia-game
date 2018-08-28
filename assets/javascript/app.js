@@ -175,5 +175,3 @@ function pickAnswer(currentQuestion, selectedAnswer) {
     }
 }
 
-
-//FIX TIMER SO IT ACTUALLY RESETS TO 10
