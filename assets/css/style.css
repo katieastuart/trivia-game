@@ -15,27 +15,78 @@
     padding-top: 30px;
 }
 
+.heading {
+    font-family: 'Monsieur La Doulaise', cursive;
+    font-size: 72px;
+}
+
+h3 {
+    font-family: 'Josefin Slab', serif;
+}
+
 .btn {
     font-family: 'Josefin Slab', serif;
+    left: 50%;
+    transform: translate(-50%);
+    position: absolute;
 }
 
 .jumbotron {
     background-color: #171e4b;
-    /* background-image: url("https://images.freecreatives.com/wp-content/uploads/2016/02/Navy-Blue-Star-Background-Vector-For-Free.jpg");
-    background-repeat: no-repeat; 
-    background-size:contain;
-    background-position:center; */
+    height: 300px;;
 }
 
 #question-area {
-    /* background-color: blanchedalmond; */
-    width: 500px;
-    margin: 100px;
-    height: 100px;
+    background-color: #ffffff;
+    padding: 25px;
+    max-width: 960px;
+    margin-top: 25px;
+    margin-bottom: 100px;
+    margin: auto;
+    position: relative;
+    height: 100%;
+    display: block;
+    
 }
 
 #start {
     position: absolute;
     left: 50%;
     right: 50%;
+}
+
+#timer {
+    text-align: center;
+}
+
+.timer-readout {
+    font-family: 'Josefin Slab', serif;
+    padding-bottom: 25px;
+}
+
+#question, #answers {
+    margin: auto;
+    max-width: 500px;
+}
+
+#question {
+    padding-bottom: 10px;
+    
+}
+
+#score {
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+h2,p {
+    text-align: center;
+}
+
+img {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    margin-bottom: 25px;
+    max-height: 300px;
 }

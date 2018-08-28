@@ -13,33 +13,27 @@ var questions = [{
     question: "Which Founding Father currently has over $300,000 in overdue library fines?",
     answers: ["Thomas Jefferson","Aaron Burr","George Washington","John Hancock"],
     correctAnswer: "George Washington",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Gilbert_Stuart%2C_George_Washington_%28Lansdowne_portrait%2C_1796%29.jpg/300px-Gilbert_Stuart%2C_George_Washington_%28Lansdowne_portrait%2C_1796%29.jpg",
-    image1: "../images/george_washington.jpg",
-    answered: false
+    image: "./assets/images/dollar_bill_face.gif"
 }, {
     question: "What river did Washington cross with the Continental Army on Christmas Day 1776?",
     answers: ["Hudson","East","Kennebec","Delaware"],
     correctAnswer: "Delaware",
-    image: "http://s3.amazonaws.com/mtv-main-assets/files/resources/large_crossing-the-delaware-met-museum.jpg",
-    answered: false
+    image: "./assets/images/delaware_selfie.jpeg"
 }, {
     question: "What was Benjamin Franklin's pen name when he published in the New England Courant?",
     answers: ["Silence Dogood","Richard Saunders","Frank Smith","Polly Baker"],
     correctAnswer: "Silence Dogood",
-    image: "https://thumbs-prod.si-cdn.com/S688lYwrKJhKQ4vFdBrOFvq6TEw=/800x600/filters:no_upscale()/https://public-media.smithsonianmag.com/filer/20110520090044benjamin-franklin-520.jpg",
-    answered: false
+    image: "./assets/images/franklin_office.gif"
 }, {
     question: "Which Founding Father had two grizzly bears as pets in the White House?",
     answers: ["John Adams","James Monroe","Thomas Jefferson","James Madison"],
     correctAnswer: "Thomas Jefferson",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/T_Jefferson_by_Charles_Willson_Peale_1791_2.jpg/200px-T_Jefferson_by_Charles_Willson_Peale_1791_2.jpg",
-    answered: false
+    image: "./assets/images/t_jeff.gif"
 }, {
     question: "Who is the $10 Founding Father?",
     answers: ["George Washington","Alexander Hamilton","Thomas Jefferson","Benjamin Frankilin"],
     correctAnswer: "Alexander Hamilton",
-    image: "https://assets.change.org/photos/6/gr/eh/LPGrEHTtpQdodlu-1600x900-noPad.jpg?1524360368",
-    answered: false
+    image: "./assets/images/IMG_2150.GIF"
 }]
 
 //click events and functions
@@ -48,7 +42,7 @@ $("#start").on("click", function() {
     loadQuestion(currentQuestion);
     //hide start button
     $("#start").hide();
-    $('#timer').prepend('<h2>Time Remaining: <span id="counter-number">10</span> Seconds</h2>');
+    $('#timer').prepend('<h2 class="timer-readout">Time Remaining: <span id="counter-number">10</span> Seconds</h2>');
 });
 
 //selected an answer
@@ -88,24 +82,26 @@ function nextQuestion() {
 function results() {
     $("#results").hide();
     $("#timer").hide();
-    $("#score").html("<h2>Game Over!</h2>")
+    $("#score").html("<h2 class='heading'>Game Over!</h2>")
     $("#score").append("<h3>Correct Answers: " + correctAnswers)
     $("#score").append("<h3>Incorrect Answers: " + wrongAnswers)
     $("#score").append("<h3>Unanswered: " + notAnswered)
-    $("#score").append("<button id='restart'>Restart</button>")
+    $("#score").append("<button class='btn btn-dark' id='restart'>Restart</button>")
 }
 
 //hides question and answers divs, shows the results div, handles the logic to either show the next question or the results
 function displayAnswer() {
+    clearInterval(intervalID);
     $("#results").show();
     $("#question").hide();
     $("#answers").hide();
     $("#timer").hide();
     $("#results").append("<img src='" + questions[currentQuestion].image + "'/>")
+    // $("#results").append("<img src='./assets/images/george_washington.jpg'/>")
         if (currentQuestion === questions.length - 1){
-            setTimeout(results, 2 * 1000);
+            setTimeout(results, 4 * 1000);
           } else {
-            setTimeout(nextQuestion, 2 * 1000);
+            setTimeout(nextQuestion, 4 * 1000);
           }
 }
 
@@ -130,7 +126,7 @@ function timeUp() {
     clearInterval(intervalID);
     countStartNumber = 10;
     notAnswered++;
-    $("#results").html("<h2>Times Up!</h2>")
+    $("#results").html("<h2 class='heading'>Times Up!</h2>")
     $("#results").append("<p>The correct answer was <strong>" + questions[currentQuestion].correctAnswer + "</strong>.")
     displayAnswer();
 }
@@ -166,13 +162,13 @@ function pickAnswer(currentQuestion, selectedAnswer) {
     //correct answer selected
     if (selectedAnswer === questions[currentQuestion].correctAnswer) {
         correctAnswers++;
-        $("#results").html("<h2>Correct!</h2>")
+        $("#results").html("<h2 class='heading'>Correct!</h2>")
         displayAnswer();
     }
     //wrong answer selected
     else {
         wrongAnswers++;
-        $("#results").html("<h2>Nope!</h2>")
+        $("#results").html("<h2 class='heading'>Nope!</h2>")
         $("#results").append("<p>The correct answer was <strong>" + questions[currentQuestion].correctAnswer + "</strong>.")
         displayAnswer();
 
