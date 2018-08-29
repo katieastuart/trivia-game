@@ -5,7 +5,7 @@ var correctAnswers = 0;
 var wrongAnswers = 0;
 var notAnswered = 0;
 var currentQuestion = 0;
-var countStartNumber = 10;
+var countStartNumber = 15;
 var intervalID;
 
 //object that holds the questions and answers
@@ -42,7 +42,7 @@ $("#start").on("click", function() {
     loadQuestion(currentQuestion);
     //hide start button
     $("#start").hide();
-    $('#timer').prepend('<h2 class="timer-readout">Time Remaining: <span id="counter-number">10</span> Seconds</h2>');
+    $('#timer').prepend('<h2 class="timer-readout">Time Remaining: <span id="counter-number">15</span> Seconds</h2>');
 });
 
 //selected an answer
@@ -59,7 +59,7 @@ $(document).on("click", "#restart", function() {
     correctAnswers = 0;
     wrongAnswers = 0;
     notAnswered = 0;
-    countStartNumber = 10;
+    countStartNumber = 15;
     $("#score").hide();
     $("#timer").show();
     $("#question").show();
@@ -69,7 +69,7 @@ $(document).on("click", "#restart", function() {
 
 //loads next question
 function nextQuestion() {
-    countStartNumber = 10;
+    countStartNumber = 15;
     currentQuestion++;
     $("#timer").show();
     $("#question").show();
@@ -92,6 +92,7 @@ function results() {
 //hides question and answers divs, shows the results div, handles the logic to either show the next question or the results
 function displayAnswer() {
     clearInterval(intervalID);
+    countStartNumber = 15;
     $("#results").show();
     $("#question").hide();
     $("#answers").hide();
@@ -114,7 +115,9 @@ function startTimer() {
 //timer function
 function countdown() {
     countStartNumber--;
-    $("#counter-number").html(countStartNumber);
+    setTimeout(function() {
+        $("#counter-number").html(countStartNumber);
+    }, 500)
     if (countStartNumber === 0) {
         console.log("TIME UP")
         timeUp();
@@ -124,7 +127,7 @@ function countdown() {
 //displays time up message and correct answer if time runs out
 function timeUp() {
     clearInterval(intervalID);
-    countStartNumber = 10;
+    countStartNumber = 15;
     notAnswered++;
     $("#results").html("<h2 class='heading'>Times Up!</h2>")
     $("#results").append("<p>The correct answer was <strong>" + questions[currentQuestion].correctAnswer + "</strong>.")
